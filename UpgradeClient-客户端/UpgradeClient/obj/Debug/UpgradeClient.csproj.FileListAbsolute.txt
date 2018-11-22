@@ -1,0 +1,15 @@
+F:\在线升级程序\UpgradeClient\UpgradeClient\obj\Debug\UpgradeClient.BeingUpdated.resources
+F:\在线升级程序\UpgradeClient\UpgradeClient\obj\Debug\UpgradeClient.Client.resources
+F:\在线升级程序\UpgradeClient\UpgradeClient\obj\Debug\UpgradeClient.Properties.Resources.resources
+F:\在线升级程序\UpgradeClient\UpgradeClient\obj\Debug\UpgradeClient.RequestLatest.resources
+F:\在线升级程序\UpgradeClient\UpgradeClient\obj\Debug\UpgradeClient.csproj.GenerateResource.cache
+F:\在线升级程序\UpgradeClient\UpgradeClient\obj\Debug\UpgradeClient.csproj.CoreCompileInputs.cache
+F:\在线升级程序\UpgradeClient\UpgradeClient\bin\Debug\UpgradeClient.exe
+F:\在线升级程序\UpgradeClient\UpgradeClient\bin\Debug\UpgradeClient.pdb
+F:\在线升级程序\UpgradeClient\UpgradeClient\obj\Debug\UpgradeClient.exe
+F:\在线升级程序\UpgradeClient\UpgradeClient\obj\Debug\UpgradeClient.pdb
+F:\在线升级程序\UpgradeClient\UpgradeClient\bin\Debug\UpgradeClient.exe.config
+F:\在线升级程序\UpgradeClient\UpgradeClient\bin\Debug\Newtonsoft.Json.dll
+F:\在线升级程序\UpgradeClient\UpgradeClient\bin\Debug\Newtonsoft.Json.xml
+F:\在线升级程序\UpgradeClient\UpgradeClient\obj\Debug\UpgradeClient.csproj.CopyComplete
+F:\在线升级程序\UpgradeClient\UpgradeClient\obj\Debug\UpgradeClient.csprojAssemblyReference.cache
