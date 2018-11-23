@@ -77,7 +77,7 @@ namespace UpgradeClient
         {
 
             string sendMsg = new JObject() {
-                { "Name","IsUpgrade"},
+                { "Name","RequestISUpdata"},
                 //程序
                 { "SerialNumber",ConfigurationManager.AppSettings["ProgramInfo"]},
                 //版本号
@@ -165,7 +165,7 @@ namespace UpgradeClient
                     MethodName = obj["Name"].ToString(),
                     JsonData = new ControlReflex.PassModel()
                     {
-                        JosnData = msg,
+                        JsonData = msg,
                         MainForm = this
                     }
                 };

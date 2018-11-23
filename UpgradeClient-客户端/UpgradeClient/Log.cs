@@ -43,9 +43,7 @@ public class Log
     private static void FileIsExists(string txtFileSaveDir)
     {
         if (!Directory.Exists(txtFileSaveDir))
-        {
             Directory.CreateDirectory(txtFileSaveDir);
-        }
     }
 
     /// <summary>
@@ -90,7 +88,7 @@ public class Log
         }
         return new string[] { addstr };
     }
-
+    
     /// <summary>
     /// 公共写入文件夹类
     /// </summary>

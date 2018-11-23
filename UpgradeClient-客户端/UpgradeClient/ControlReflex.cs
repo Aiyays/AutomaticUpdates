@@ -17,7 +17,6 @@ namespace UpgradeClient
         /// </summary>
         public class ReflexModel
         {
-
             /// <summary>
             /// 文件地址
             /// </summary>
@@ -49,7 +48,7 @@ namespace UpgradeClient
             /// <summary>
             /// 接收到的Json数据
             /// </summary>
-            public string JosnData { get; set; }
+            public string JsonData { get; set; }
 
             public Client MainForm { get; set; }
            

@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -22,11 +23,11 @@ namespace UpgradeClient
         /// <param name="jsonData">{"Name": "","Data": {},"Url": "地址"}</param>
         public void SaveLocal(ControlReflex.PassModel model)
         {
-            JObject obj = JObject.Parse(model.JosnData);
+            JObject obj = JObject.Parse(model.JsonData);
             try
             {
                 //需要存储的数据
-                byte[] btData = Encoding.UTF8.GetBytes(obj["Data"].ToString());
+                byte[] btData = JsonConvert.DeserializeObject<byte[]>(obj["Data"].ToString());
 
                 //应该存储的地址
                 string url = obj["Url"].ToString();
@@ -34,6 +35,8 @@ namespace UpgradeClient
                 //数据备份
                 if (File.Exists(url))
                     CommonTool.TheBackup(url);
+                else
+                { }
 
                 #region 拆分判断是否地址存在 ->不存在则创建
                 string[] str = url.Split('\\');
@@ -47,11 +50,12 @@ namespace UpgradeClient
 
                 //本地写入
                 File.WriteAllBytes(url, btData);
-               
+
+
             }
             catch (Exception ex )
             {
-                Log.WriteLine(string.Format("时间:{0}\r\n异常信息{1}\r\n接受到的JsonData{2}",DateTime.Now,ex.Message,model.JosnData));
+                Log.WriteLine(string.Format("时间:{0}\r\n异常信息{1}\r\n接受到的JsonData{2}",DateTime.Now,ex.Message,model.JsonData));
                 model.MainForm.Close_This();
             }
         }
@@ -62,7 +66,7 @@ namespace UpgradeClient
         /// <param name="jsonData"></param>
         public void ISUpdate(ControlReflex.PassModel model)
         {
-            JObject obj = JObject.Parse(model.JosnData);
+            JObject obj = JObject.Parse(model.JsonData);
             try
             {
                 //不需要更新
@@ -79,7 +83,7 @@ namespace UpgradeClient
             }
             catch (Exception ex)
             {
-                Log.WriteLine(string.Format("时间:{0}\r\n异常信息{1}\r\n接受到的JsonData{2}", DateTime.Now, ex.Message, model.JosnData));
+                Log.WriteLine(string.Format("时间:{0}\r\n异常信息{1}\r\n接受到的JsonData{2}", DateTime.Now, ex.Message, model.JsonData));
                 model.MainForm.Close_This();
             }
         }
@@ -90,14 +94,15 @@ namespace UpgradeClient
         /// <param name="model"></param>
         public void Close_This(ControlReflex.PassModel model)
         { 
-            JObject obj = JObject.Parse(model.JosnData);
+            
+            JObject obj = JObject.Parse(model.JsonData);
             try
             {
-                ConfigurationManager.AppSettings.Set("VersionNumber", obj["Data"].ToString());
+                //ConfigurationManager.AppSettings.Set("VersionNumber", obj["Data"].ToString());
             }
             catch ( Exception ex)
             {
-                Log.WriteLine(string.Format("时间:{0}\r\n异常信息{1}\r\n接受到的JsonData{2}", DateTime.Now, ex.Message, model.JosnData));
+                Log.WriteLine(string.Format("时间:{0}\r\n异常信息{1}\r\n接受到的JsonData{2}", DateTime.Now, ex.Message, model.JsonData));
             }
             model.MainForm.Close_This();
         }

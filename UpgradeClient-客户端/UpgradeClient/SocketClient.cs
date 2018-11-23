@@ -27,6 +27,9 @@ namespace UpgradeClient
         /// </summary>
         public string Tail = null;
 
+        /// <summary>
+        /// 数据接受
+        /// </summary>
         public Action<string> RecvData = null;
 
         /// <summary>
@@ -72,21 +75,32 @@ namespace UpgradeClient
         /// </summary>
         public void Recv()
         {
-            //数据长度
-            int lenth = clientSocket.Receive(bt);
-            if (lenth > 0)
+            while (true)
             {
-                //接受到的数据
-                string msg = Encoding.UTF8.GetString(bt, 0, lenth);
-                //处理数据
-                if (sb.Length.Equals(0))
-                    sb.Append(msg.Contains(Head) ? msg.Substring(msg.IndexOf(Head), msg.Length - msg.IndexOf(Head)) : "");
-                else
-                    sb.Append(msg);
+                int lenth = 0;
+                //数据长度
+                try
+                {
+                    lenth = clientSocket.Receive(bt);
+                }
+                catch (Exception ex)
+                {
+
+                }
+                if (lenth > 0)
+                {
+                    //接受到的数据
+                    string msg = Encoding.UTF8.GetString(bt, 0, lenth);
+                    //处理数据
+                    if (sb.Length.Equals(0))
+                        sb.Append(msg.Contains(Head) ? msg.Substring(msg.IndexOf(Head), msg.Length - msg.IndexOf(Head)) : "");
+                    else
+                        sb.Append(msg);
+                }
+                //判断是否包含命令尾
+                if (sb.ToString().Contains(Tail))
+                    ProcessingData();
             }
-            //判断是否包含命令尾
-            if (sb.ToString().Contains(Tail))
-                ProcessingData();
 
         }
 
@@ -99,7 +113,6 @@ namespace UpgradeClient
             while (sb.ToString().Contains(Tail))
             {
                 string info = sb.ToString().Substring(0, sb.ToString().IndexOf(Tail) + Tail.Length);
-
                 //解析数据
                 //处理数据
                 Thread thread = new Thread(() =>
@@ -114,7 +127,7 @@ namespace UpgradeClient
                 sb.Remove(0, sb.ToString().IndexOf(Tail) + Tail.Length);
                 if ((!sb.ToString().Contains(Head)) && (!sb.Length.Equals(0)))
                     sb = new StringBuilder();
-                else if(!sb.Length.Equals(0))
+                else if(!sb.Length.Equals(0)&&(!sb.ToString()[0].Equals('\u0002')))
                     sb.Remove(0, sb.ToString().IndexOf(Head) - 1);
             }
         }
@@ -126,9 +139,7 @@ namespace UpgradeClient
         public void SendMessage(string msg)
         {
             byte[] bt = Encoding.UTF8.GetBytes(msg) ;
-
             clientSocket.Send(bt,bt.Length,SocketFlags.None);
-
         }
 
 
